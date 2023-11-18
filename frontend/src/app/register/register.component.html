@@ -1,0 +1,188 @@
+<div
+  class="container-fluid d-flex flex-column flex-grow-1"
+  style="padding-top: 7%"
+>
+  <div class="container-sm" style="width: 30%; min-width: 300px">
+    <div class="row">
+      <p class="fs-1 text-center text-white">Zarejestruj się</p>
+    </div>
+    <div class="row registerAsBorder">
+      <div class="col-sm-12 col-md-6" align="center">
+        <div class="btn-group" role="group" aria-label="Basic example">
+          <button
+            id="registerAsMechanic"
+            type="button"
+            class="btn btn-outline-light radioCustom"
+            (click)="changeClientType($event)"
+          >
+            Jako mechanik
+          </button>
+          <button
+            id="registerAsClient"
+            type="button"
+            class="btn btn-outline-light radioCustom selectedTypeOfClient"
+            (click)="changeClientType($event)"
+          >
+            Jako klient
+          </button>
+        </div>
+      </div>
+      <div class="col-sm-0 col-md-6"></div>
+    </div>
+    <div *ngIf="clientRegister">
+      <div class="row mt-3 inputFieldCustomSpacing" align="center">
+        <input
+          [(ngModel)]="clientName"
+          class="form-control form-control-md"
+          type="text"
+          placeholder="Imię i nazwisko"
+          aria-label="pole imię i nazwisko"
+        />
+      </div>
+      <div class="row mt-3 inputFieldCustomSpacing">
+        <input
+          [(ngModel)]="clientAddress"
+          class="form-control form-control-md"
+          type="text"
+          placeholder="Adres"
+          aria-label="pole adres"
+        />
+      </div>
+      <div class="row mt-3 inputFieldCustomSpacing">
+        <input
+          [(ngModel)]="clientPhone"
+          class="form-control form-control-md"
+          type="text"
+          placeholder="Numer telefonu"
+          aria-label="pole telefon"
+        />
+      </div>
+      <div class="row mt-3 inputFieldCustomSpacing">
+        <input
+          [(ngModel)]="clientMail"
+          class="form-control form-control-md"
+          type="text"
+          placeholder="Adres email"
+          aria-label="pole email"
+        />
+      </div>
+      <div class="row mt-3 inputFieldCustomSpacing">
+        <input
+          [(ngModel)]="clientPassword"
+          class="form-control form-control-md"
+          type="password"
+          placeholder="Hasło"
+          aria-label="pole hasło"
+        />
+      </div>
+      <div class="row mt-3 inputFieldCustomSpacing">
+        <input
+          [(ngModel)]="clientConfirmPassword"
+          class="form-control form-control-md"
+          type="password"
+          placeholder="Powtórz hasło"
+          aria-label="pole hasło"
+        />
+      </div>
+      <div *ngIf="!passwordMatch" class="row mt-3">
+        <div class="col">
+          <p class="text-center" style="color:red">Hała są różne!</p>
+        </div>
+      </div>
+      <div class="row mt-3">
+        <div class="col-2"></div>
+        <div class="col-8" align="center">
+          <button type="button" class="btn btn-secondary" (click)="onRegister()">Zarejestruj</button>
+        </div>
+        <div class="col-2"></div>
+      </div>
+    </div>
+    <div *ngIf="!clientRegister">
+      <div class="row mt-3 inputFieldCustomSpacing" align="center">
+        <input
+          [(ngModel)]="mechanicName"
+          class="form-control form-control-md"
+          type="text"
+          placeholder="Nazwa firmy"
+          aria-label="pole nazwa firmy"
+        />
+      </div>
+      <div class="row mt-3 inputFieldCustomSpacing">
+        <input
+          [(ngModel)]="mechanicAddress"
+          class="form-control form-control-md"
+          type="text"
+          placeholder="Adres firmy"
+          aria-label="pole adres"
+        />
+      </div>
+      <div class="row mt-3 inputFieldCustomSpacing">
+        <input
+          [(ngModel)]="mechanicSpec"
+          class="form-control form-control-md"
+          type="text"
+          placeholder="Specjalizacja"
+          aria-label="pole specjalizacja"
+        />
+      </div>
+      <div class="row mt-3 inputFieldCustomSpacing">
+        <input
+          [(ngModel)]="mechanicMail"
+          class="form-control form-control-md"
+          type="text"
+          placeholder="Adres email"
+          aria-label="pole email"
+        />
+      </div>
+      <div class="row mt-3 inputFieldCustomSpacing">
+        <input
+          [(ngModel)]="mechanicPassword"
+          class="form-control form-control-md"
+          type="password"
+          placeholder="Hasło"
+          aria-label="pole hasło"
+        />
+      </div>
+      <div class="row mt-3 inputFieldCustomSpacing">
+        <input
+          [(ngModel)]="mechanicConfirmPassword"
+          class="form-control form-control-md"
+          type="password"
+          placeholder="Powtórz hasło"
+          aria-label="pole hasło"
+        />
+      </div>
+      <div *ngIf="!passwordMatch" class="row mt-3">
+        <div class="col">
+          <p class="text-center" style="color:red">Hała są różne!</p>
+        </div>
+      </div>
+      <div class="row mt-3">
+        <div class="col-2"></div>
+        <div class="col-8" align="center">
+          <button
+            type="button"
+            class="btn btn-secondary"
+            (click)="onRegister()"
+          >
+            Zarejestruj
+          </button>
+        </div>
+        <div class="col-2"></div>
+      </div>
+    </div>
+    <div class="row mt-5">
+      <div class="col-12" align="center">
+        <p class="text-center text-white">Masz już konto?</p>
+      </div>
+      <div class="col-12" align="center">
+        <p
+          class="text-center text-decoration-underline text-white"
+          (click)="redirectToLogin()"
+        >
+          Zaloguj się
+        </p>
+      </div>
+    </div>
+  </div>
+</div>

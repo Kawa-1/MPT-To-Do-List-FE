@@ -1,0 +1,22 @@
+.inputFieldCustomSpacing {
+  padding-left: 20% !important;
+  padding-right: 20% !important;
+}
+
+.registerAsBorder {
+  border-style: solid;
+  border-color: white;
+  border-top: 0;
+  border-left: 0;
+  border-right: 0;
+  border-bottom: 0.3%;
+}
+
+.radioCustom {
+  border-radius: 3px !important;
+  border-bottom: 0 !important;
+}
+
+.selectedTypeOfClient {
+  color: darkcyan;
+}
