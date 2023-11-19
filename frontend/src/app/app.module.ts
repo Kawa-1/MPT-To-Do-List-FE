@@ -21,7 +21,7 @@ import { DashboardComponent } from './dashboard/dashboard.component';
     LoginComponent,
     RegisterComponent,
     DashboardComponent,
-    TasklistComponent
+    TasklistComponent,
     RegisterComponent
   ],
   imports: [
