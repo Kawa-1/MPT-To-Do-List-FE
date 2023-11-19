@@ -1,0 +1,21 @@
+<div class="dashboard-container">
+  <div class="sidebar">
+    <div class="project-name">Nazwa firmy</div>
+    <div class="options">
+    <button class="option" (click)="handleOptionClick('MainPage')">
+      <i class="fas fa-home"></i> Strona główna
+    </button>
+    <button class="option" (click)="handleOptionClick('TODO')">
+      <i class="fas fa-list"></i> To Do
+    </button>
+    </div>
+  </div>
+  <div class="main-panel">
+    <ng-container *ngIf="selectedOption === 'TODO'; else defaultContent">
+      <app-tasklist></app-tasklist>
+    </ng-container>
+    <ng-template #defaultContent>
+      <h2>Main Panel Content</h2>
+    </ng-template>
+  </div>
+</div>

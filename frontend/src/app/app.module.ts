@@ -10,10 +10,18 @@ import { LoginComponent } from './login/login.component';
 import { RegisterComponent } from './register/register.component';
 import { HttpClientModule } from '@angular/common/http';
 
+import { TasklistComponent } from './tasklist/tasklist.component';
+import { TaskService } from './task.service';
+import { DashboardComponent } from './dashboard/dashboard.component';
+
+
 @NgModule({
   declarations: [
     AppComponent,
     LoginComponent,
+    RegisterComponent,
+    DashboardComponent,
+    TasklistComponent
     RegisterComponent
   ],
   imports: [
@@ -24,7 +32,7 @@ import { HttpClientModule } from '@angular/common/http';
     FormsModule,
     HttpClientModule
   ],
-  providers: [],
+  providers: [TaskService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
