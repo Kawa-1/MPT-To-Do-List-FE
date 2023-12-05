@@ -28,6 +28,7 @@ export class RegisterComponent {
   mechanicConfirmPassword: String = '';
 
   passwordMatch: Boolean = true;
+  showError: boolean = false;
 
   constructor(private router: Router, private loginService: LoginService) {}
 
@@ -48,7 +49,7 @@ export class RegisterComponent {
   }
 
   redirectToLogin(): void {
-    this.router.navigate(['']);
+    this.router.navigate(['/login']);
   }
 
   onRegister(): void {
@@ -65,17 +66,19 @@ export class RegisterComponent {
       return;
     }
     let newUserData: RegisterWrapper = {
-      clientType: 'Standard',
-      clientAddress: this.clientAddress,
-      clientMail: this.clientMail,
-      clientName: this.clientName,
-      clientPassword: this.clientPassword,
-      clientPhone: this.clientPhone,
-      clientSpec: '',
+      // clientType: 'Standard',
+      // clientAddress: this.clientAddress,
+      username: this.clientMail,
+      // clientName: this.clientName,
+      password: this.clientPassword,
+      // clientPhone: this.clientPhone,
+      // clientSpec: '',
     };
     this.loginService.register(newUserData).subscribe({
       next: (data) => console.log(data),
-      error: (err) => console.error(err),
+      error: (err) => {console.error(err);
+        this.showError = true;
+        setTimeout(() => this.showError = false, 5000);},
     });
   }
 
@@ -85,17 +88,21 @@ export class RegisterComponent {
       return;
     }
     let newUserData: RegisterWrapper = {
-      clientType: 'Mechanic',
-      clientAddress: this.mechanicAddress,
-      clientMail: this.mechanicMail,
-      clientName: this.mechanicName,
-      clientPassword: this.mechanicPassword,
-      clientPhone: '',
-      clientSpec: this.mechanicSpec,
+      // clientType: 'Mechanic',
+      // clientAddress: this.mechanicAddress,
+      username: this.mechanicMail,
+      // clientName: this.mechanicName,
+      password: this.mechanicPassword,
+      // clientPhone: '',
+      // clientSpec: this.mechanicSpec,
     };
     this.loginService.register(newUserData).subscribe({
       next: (data) => console.log(data),
-      error: (err) => console.error(err),
+      error: (err) => {
+        console.error(err);
+          this.showError = true;
+          setTimeout(() => this.showError = false, 5000);
+      },
     });
   }
 

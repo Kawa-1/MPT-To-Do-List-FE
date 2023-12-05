@@ -10,7 +10,7 @@ export class LoginService {
 
   authenticate(login: String, password: String): Observable<string> {
     return this.httpClient.post<string>(URL + '/auth/login', {
-      login: login,
+      username: login,
       password: password,
     });
   }
@@ -21,13 +21,13 @@ export class LoginService {
 }
 
 export interface RegisterWrapper {
-  clientType: String;
-  clientName: String;
-  clientAddress: String;
-  clientPhone: String;
-  clientMail: String;
-  clientPassword: String;
-  clientSpec: String;
+  // clientType: String;
+  // clientName: String;
+  username: String;
+  // clientPhone: String;
+  // clientMail: String;
+  password: String;
+  // clientSpec: String;
 }
 
 const URL: string = 'http://localhost:8090';

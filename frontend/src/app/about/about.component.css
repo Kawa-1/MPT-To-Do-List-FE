@@ -1,0 +1,21 @@
+/* about-us.component.css */
+.about-us-container {
+    max-width: 600px;
+    margin: 10% auto;
+    padding: 25px;
+    border-radius: 10px;
+    background-color: #3e3e3e;
+  }
+
+  h2 {
+    color: #ffffff;
+  }
+
+  h4 {
+    color: #ffffff;
+  }
+
+  p {
+    line-height: 1.6;
+    color: #ffffff;
+  }

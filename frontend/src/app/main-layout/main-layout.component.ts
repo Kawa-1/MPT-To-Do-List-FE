@@ -19,6 +19,6 @@ export class MainLayoutComponent {
   }
 
   redirectToLogin() {
-    this.router.navigate(['']);
+    this.router.navigate(['/login']);
   }
 }

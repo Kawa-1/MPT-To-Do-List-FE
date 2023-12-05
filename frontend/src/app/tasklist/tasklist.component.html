@@ -11,23 +11,38 @@
 </div>
 
 <ng-template #taskDetails>
-  <div class="task-banner">
-      <p>{{ selectedTask!.name }}</p>
-  </div>
+
   <!-- Display task details here -->
   <div class="task-details">
-      <h3>{{ selectedTask!.name }}</h3>
-      <p>{{ selectedTask!.description }}</p>
-      <button (click)="selectedTask = null">Back to Task List</button>
+      <div class="task-banner">
+        <p>{{ selectedTask!.name }}</p>
+      </div>
+      <p class="inside-task-description">{{ selectedTask!.description }}</p>
+      <button class="button-back" (click)="selectedTask = null">Back to Task List</button>
       <div class="subtask-container">
         <div class="subtask-status-todo subtask-status">
-          <p> </p>
+          <div *ngFor="let subtask of filterSubtasksByStatus('ToDo')" class="subtask-tile">
+            <div class="subtask-title">
+              <h3>{{ subtask.name }}</h3>
+            </div>
+            <p class="subtask-description">{{ subtask.description }}</p>
+          </div>
         </div>
         <div class="subtask-status-doing subtask-status">
-          <p> </p>
+          <div *ngFor="let subtask of filterSubtasksByStatus('Doing')" class="subtask-tile">
+            <div class="subtask-title">
+              <h3>{{ subtask.name }}</h3>
+            </div>
+            <p class="subtask-description">{{ subtask.description }}</p>
+          </div>
         </div>
         <div class="subtask-status-done subtask-status">
-          <p> </p>
+          <div *ngFor="let subtask of filterSubtasksByStatus('Done')" class="subtask-tile">
+            <div class="subtask-title">
+              <h3>{{ subtask.name }}</h3>
+            </div>
+            <p class="subtask-description">{{ subtask.description }}</p>
+          </div>
         </div>
       </div>
   </div>

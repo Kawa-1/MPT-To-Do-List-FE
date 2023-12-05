@@ -22,7 +22,7 @@
 }
 
 .task-title {
-  background-color: #e0e0e0;
+  background-color: #f7faf9;
   color: #464646;
   padding: 8px;
   border-top-left-radius: 8px;
@@ -41,7 +41,7 @@
   font-weight: bold;
   color: #ffffff;
   padding-top: 1%;
-  padding-left: 2%;
+  padding-left: 1%;
   font-size: 40px;
   width: 100%;
   box-sizing: border-box;
@@ -52,12 +52,12 @@
   margin-top: 1%;
   margin-left: 2%;
   margin-right: 2%;
-  background-color: #ffffff;
-  color: #464646;
+  background-color: #3e3e3e;
+  color: #ffffff;
   padding: 8px;
   border-radius: 8px;
   overflow: hidden;
-  height: 100%;
+  height: 85%;
   }
 
 .subtask-container {
@@ -69,18 +69,43 @@
 .subtask-status {
   margin: 1%;
   width: 31%;
-  border-radius: 8px;
-  height: 100%;
+  border-radius: 10px;
+  /* height: 100%; */
+  max-height: 85%;
 }
 
 .subtask-status-todo {
-  background-color: rgb(255, 169, 169);
+  background-color: #603435;
 }
 
 .subtask-status-doing {
-  background-color: rgb(255, 231, 97);
+  background-color: #5f5434;
 }
 
 .subtask-status-done {
-  background-color: rgb(183, 255, 88);
+  background-color: #33603c;
+}
+
+.subtask-tile {
+  background-color: #d8d8d8;
+  margin: 15px;
+  border-radius: 10px;
+  padding: 15px;
+}
+
+.subtask-title {
+  color: #454545;
+}
+
+.subtask-description {
+  color: #939393;
+}
+
+.inside-task-description {
+  padding-left: 1%;
+  color: #62676c;
+}
+
+.button-back {
+  margin-left: 1%;
 }

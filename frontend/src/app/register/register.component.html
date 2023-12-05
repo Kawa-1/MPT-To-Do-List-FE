@@ -186,3 +186,13 @@
     </div>
   </div>
 </div>
+<div style="position: absolute; bottom: 30px; right: 20px">
+  <ngb-alert
+    class="bg-danger bottom-0 end-0 postion-fixed"
+    *ngIf="showError"
+    type="danger"
+    (hidden)="showError = false"
+  >
+    You provided wrong credentials
+  </ngb-alert>
+</div>

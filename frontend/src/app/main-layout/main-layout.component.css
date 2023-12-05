@@ -1,3 +1,13 @@
 #customNavbar {
-  background-color: rgb(87, 87, 87) !important;
+  background-color: #343a3f !important;
+}
+
+.backgroundWallpaper {
+  background-image: url('/assets/mechanic-login.jpg');
+  background-repeat: no-repeat;
+  height: 100vh;
+  width: 100vw;
+  position: fixed;
+  z-index: -100;
+  background-size: auto 150vh;
 }
