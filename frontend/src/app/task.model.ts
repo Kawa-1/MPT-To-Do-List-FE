@@ -1,13 +1,15 @@
 export interface Task {
-  id: number;
+  tid: number;
+  uid: number;
   name: string;
   description: string;
   subtasks?: Subtask[];
 }
 
 export interface Subtask {
-  id: number;
+  sid: number;
+  tid: number;
   name: string;
   description: string;
-  status: 'ToDo' | 'Doing' | 'Done';
+  status: 'todo' | 'doing' | 'done';
 }
