@@ -6,6 +6,7 @@ import { DashboardComponent } from './dashboard/dashboard.component';
 import { AboutComponent } from './about/about.component';
 import { AuthGuard } from './auth.guard';
 import { LandingPageComponent } from './landing-page/landing-page.component';
+import { HowToPageComponent } from './how-to-page/how-to-page.component';
 
 const routes: Routes = [
   { path: '', component: LandingPageComponent },
@@ -16,7 +17,8 @@ const routes: Routes = [
     component: DashboardComponent,
     canActivate: [AuthGuard],
   },
-  { path: 'about', component: AboutComponent}
+  { path: 'about', component: AboutComponent },
+  { path: 'howtouse', component: HowToPageComponent },
 ];
 
 @NgModule({
