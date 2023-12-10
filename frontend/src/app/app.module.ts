@@ -13,6 +13,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { TasklistComponent } from './tasklist/tasklist.component';
 import { TaskService } from './task.service';
 import { DashboardComponent } from './dashboard/dashboard.component';
+import { DragDropModule } from '@angular/cdk/drag-drop';
 
 
 @NgModule({
@@ -30,7 +31,8 @@ import { DashboardComponent } from './dashboard/dashboard.component';
     AppRoutingModule,
     MainLayoutComponent,
     FormsModule,
-    HttpClientModule
+    HttpClientModule,
+    DragDropModule
   ],
   providers: [TaskService],
   bootstrap: [AppComponent]

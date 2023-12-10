@@ -11,8 +11,6 @@
 </div>
 
 <ng-template #taskDetails>
-
-  <!-- Display task details here -->
   <div class="task-details">
       <div class="task-banner">
         <p>{{ selectedTask!.name }}</p>
@@ -21,27 +19,51 @@
       <button class="button-back" (click)="selectedTask = null">Back to Task List</button>
       <div class="subtask-container">
         <div class="subtask-status-todo subtask-status">
-          <div *ngFor="let subtask of filterSubtasksByStatus('ToDo')" class="subtask-tile">
-            <div class="subtask-title">
-              <h3>{{ subtask.name }}</h3>
+          <div
+          cdkDropList
+          #todoList="cdkDropList"
+          [cdkDropListData]="todo"
+          [cdkDropListConnectedTo]="[doingList, doneList]"
+          class="example-list"
+          (cdkDropListDropped)="drop($event, 'todo')">
+            <div *ngFor="let subtask of todo" class="subtask-tile" cdkDrag [cdkDragData]="{ sid: subtask.sid }">
+              <div class="subtask-title">
+                <h3>{{ subtask.name }}</h3>
+              </div>
+              <p class="subtask-description">{{ subtask.description }}</p>
             </div>
-            <p class="subtask-description">{{ subtask.description }}</p>
           </div>
         </div>
         <div class="subtask-status-doing subtask-status">
-          <div *ngFor="let subtask of filterSubtasksByStatus('Doing')" class="subtask-tile">
-            <div class="subtask-title">
-              <h3>{{ subtask.name }}</h3>
+          <div
+            cdkDropList
+            #doingList="cdkDropList"
+            [cdkDropListData]="doing"
+            [cdkDropListConnectedTo]="[todoList, doneList]"
+            class="example-list"
+            (cdkDropListDropped)="drop($event, 'doing')">
+            <div *ngFor="let subtask of doing" class="subtask-tile" cdkDrag [cdkDragData]="{ sid: subtask.sid }">
+              <div class="subtask-title">
+                <h3>{{ subtask.name }}</h3>
+              </div>
+              <p class="subtask-description">{{ subtask.description }}</p>
             </div>
-            <p class="subtask-description">{{ subtask.description }}</p>
           </div>
         </div>
         <div class="subtask-status-done subtask-status">
-          <div *ngFor="let subtask of filterSubtasksByStatus('Done')" class="subtask-tile">
-            <div class="subtask-title">
-              <h3>{{ subtask.name }}</h3>
+          <div
+            cdkDropList
+            #doneList="cdkDropList"
+            [cdkDropListData]="done"
+            [cdkDropListConnectedTo]="[todoList, doingList]"
+            class="example-list"
+            (cdkDropListDropped)="drop($event, 'done')">
+            <div *ngFor="let subtask of done" class="subtask-tile" cdkDrag [cdkDragData]="{ sid: subtask.sid }">
+              <div class="subtask-title">
+                <h3>{{ subtask.name }}</h3>
+              </div>
+              <p class="subtask-description">{{ subtask.description }}</p>
             </div>
-            <p class="subtask-description">{{ subtask.description }}</p>
           </div>
         </div>
       </div>
