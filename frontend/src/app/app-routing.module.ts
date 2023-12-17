@@ -8,6 +8,7 @@ import { AuthGuard } from './auth.guard';
 import { LandingPageComponent } from './landing-page/landing-page.component';
 import { HowToPageComponent } from './how-to-page/how-to-page.component';
 import { AboutProductPageComponent } from './about-product-page/about-product-page.component';
+import { UserDashboardComponent } from './user-dashboard/user-dashboard.component';
 
 const routes: Routes = [
   { path: '', component: LandingPageComponent },
@@ -21,6 +22,7 @@ const routes: Routes = [
   { path: 'about', component: AboutPageComponent },
   { path: 'howtouse', component: HowToPageComponent },
   { path: 'aboutproduct', component: AboutProductPageComponent },
+  { path: 'userdashboard', component: UserDashboardComponent }
 ];
 
 @NgModule({
