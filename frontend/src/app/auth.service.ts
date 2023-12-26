@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { CookieService } from 'ngx-cookie-service';
-import { HttpClient, HttpParams } from '@angular/common/http';
+import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 
 @Injectable({
   providedIn: 'root'
@@ -9,21 +9,37 @@ export class AuthService {
 
   constructor(private cookieService: CookieService, private httpClient: HttpClient) {}
 
-  setToken(token:any):void{
-    this.cookieService.set('Token', token.jwt);
+  setToken(token:any):void {
+    this.cookieService.set('Token', token);
+  }
+
+  setRole(role:string):void {
+    this.cookieService.set('Role', role);
+  }
+
+  getRole():string {
+    return this.cookieService.get('Role');
+  }
+
+  getToken():string {
+    return this.cookieService.get('Token');
+  }
+
+  createAuthHeader():HttpHeaders {
+    let header = new HttpHeaders({
+      "Content-Type": "Application/json",
+      "Authorization": `Bearer ${this.getToken()}`
+    });
+    return header;
   }
 
   async checkIsLogged(): Promise<boolean> {
-    return new Promise((resolve, reject) => {
-      let queryParams = new HttpParams();
-      queryParams.append('token', this.cookieService.get('Token'));
-      console.log(this.cookieService.get('Token'));
-      this.httpClient.get<boolean>(URL + '/auth/validate', {params: queryParams
+    return new Promise((resolve) => {
+      this.httpClient.get<any>(URL + '/auth/validate', {params: new HttpParams().set("token", this.cookieService.get('Token'))
       }).subscribe({
         next: () => resolve(true),
         error: () => {
-          resolve(true);
-          // resolve(false); //tu trzeba wyjebać linijkę poprzednią a odkomentować tą
+          resolve(false);
         }
       });
     });

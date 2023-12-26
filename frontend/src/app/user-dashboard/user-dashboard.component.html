@@ -2,6 +2,9 @@
   <div class="sidebar">
     <div class="project-name">Nazwa firmy</div>
     <div class="options">
+      <button class="option" (click)="openModal(createCarModal)">
+        <i class="fas fa-home"></i> Dodaj samochód
+      </button>
       <button class="option" (click)="openModal(createOrderModal)">
         <i class="fas fa-home"></i> Nowe zlecenie
       </button>
@@ -10,10 +13,13 @@
       </button>
     </div>
   </div>
-  <div class="main-panel">
+  <div *ngIf="showMainPanel" class="main-panel">
     <ng-template #defaultContent>
       <h2>Main Panel Content</h2>
     </ng-template>
+  </div>
+  <div *ngIf="showOrders" class="main-panel">
+    <app-client-orders></app-client-orders>
   </div>
 </div>
 
@@ -29,14 +35,12 @@
   <div
     class="modal-body d-flex justify-content-center flex-column align-items-center"
   >
-    <label class="form-label">Nazwa Samochodu</label>
-    <input class="form-control" [(ngModel)]="carname" />
-    <label class="form-label">Model</label>
-    <input class="form-control" [(ngModel)]="model" />
-    <label class="form-label">Rok produkcji</label>
-    <input class="form-control" [(ngModel)]="productionYear" />
+    <label class="form-label">Numer twojego samochodu</label>
+    <input class="form-control" [(ngModel)]="orderCarId" />
+    <label class="form-label">Nazwa problemu</label>
+    <input class="form-control" [(ngModel)]="orderName" />
     <label class="form-label">Opis usterki</label>
-    <input class="form-control" [(ngModel)]="problemDescription" />
+    <input class="form-control" [(ngModel)]="orderProblemDescription" />
   </div>
   <div class="modal-footer">
     <button
@@ -57,6 +61,43 @@
   </div>
 </ng-template>
 
+
+<ng-template #createCarModal let-modal>
+  <div class="modal-header">
+    <h4 class="modal-title" id="modal-basic-title">Dodaj samochód</h4>
+    <button
+      type="button"
+      class="btn-close"
+      (click)="modal.dismiss('Cross click')"
+    ></button>
+  </div>
+  <div
+    class="modal-body d-flex justify-content-center flex-column align-items-center"
+  >
+    <label class="form-label">Nazwa samochodu</label>
+    <input class="form-control" [(ngModel)]="carName" />
+    <label class="form-label">Opis modelu</label>
+    <input class="form-control" [(ngModel)]="carDescription" />
+  </div>
+  <div class="modal-footer">
+    <button
+      type="button"
+      [hidden]="isLoading"
+      class="btn btn-outline-dark"
+      (click)="tryCreateCar()"
+    >
+      Dodaj twój samochód
+    </button>
+    <button type="button" [hidden]="!isLoading" class="btn btn-outline-dark">
+      <span
+        class="spinner-border spinner-border-sm"
+        role="status"
+        aria-hidden="true"
+      ></span>
+    </button>
+  </div>
+</ng-template>
+
 <div style="position: absolute; bottom: 30px; right: 20px">
   <ngb-toast
     class="bg-success bottom-0 end-0 postion-fixed"
@@ -65,15 +106,15 @@
     [autohide]="true"
     (hidden)="showSuccess = false"
   >
-    Przekazaliźmy twoje zlecenie do mechaników w twojej okolicy
+    Rekord pomyślnie utworzono
   </ngb-toast>
-  <!-- <ngb-toast
+  <ngb-toast
     class="bg-danger bottom-0 end-0 postion-fixed"
     *ngIf="showError"
-    header="Error during adding process"
+    header="Napotkaliśmy przeciwność losu"
     [autohide]="true"
     (hidden)="showError = false"
   >
-    Given data is probably wrong or device is unreachable
-  </ngb-toast> -->
+    Wystąpił błąd, spróbuj ponownie lub skontaktuj się z administratorem
+  </ngb-toast>
 </div>

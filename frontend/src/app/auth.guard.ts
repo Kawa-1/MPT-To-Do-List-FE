@@ -13,6 +13,7 @@ import { AuthService } from './auth.service';
 })
 export class AuthGuard implements CanActivate {
   constructor(private authService: AuthService, private router: Router) {}
+
   async canActivate(
     route: ActivatedRouteSnapshot,
     state: RouterStateSnapshot
@@ -21,6 +22,6 @@ export class AuthGuard implements CanActivate {
     if (!isLogged) {
       this.router.navigate(['']);
     }
-    return new Promise((resolve, reject) => resolve(isLogged));
+    return new Promise((resolve) => resolve(isLogged));
   }
 }

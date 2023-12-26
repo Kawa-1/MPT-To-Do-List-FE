@@ -26,8 +26,9 @@
         </li>
       </ul>
     </div>
-    <button type="button" class="btn btn-light mx-3" (click)="redirectToRegister()">Rejestracja</button>
-    <button type="button" class="btn btn-secondary" (click)="redirectToLogin()">Logowanie</button>
+    <button *ngIf="!isLogged"  type="button" class="btn btn-light mx-3" (click)="redirectToRegister()">Rejestracja</button>
+    <button *ngIf="!isLogged" type="button" class="btn btn-secondary" (click)="redirectToLogin()">Logowanie</button>
+    <button *ngIf="isLogged" type="button" class="btn btn-secondary" (click)="logout()">Wyloguj</button>
   </div>
 </nav>
 <router-outlet></router-outlet>
