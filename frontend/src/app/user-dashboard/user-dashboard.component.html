@@ -11,10 +11,14 @@
     </div>
   </div>
   <div class="main-panel">
+    <ng-container *ngIf="selectedOption === 'Zlecenia'; else defaultContent">
+      <app-user-tasklist></app-user-tasklist>
+    </ng-container>
     <ng-template #defaultContent>
       <h2>Main Panel Content</h2>
     </ng-template>
   </div>
+
 </div>
 
 <ng-template #createOrderModal let-modal>

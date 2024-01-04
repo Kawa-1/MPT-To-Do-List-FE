@@ -15,6 +15,7 @@ import { TaskService } from './task.service';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { DragDropModule } from '@angular/cdk/drag-drop';
 import { UserDashboardComponent } from './user-dashboard/user-dashboard.component';
+import { UserTasklistComponent } from './user-tasklist/user-tasklist.component';
 
 
 @NgModule({
@@ -25,7 +26,8 @@ import { UserDashboardComponent } from './user-dashboard/user-dashboard.componen
     DashboardComponent,
     TasklistComponent,
     RegisterComponent,
-    UserDashboardComponent
+    UserDashboardComponent,
+    UserTasklistComponent
   ],
   imports: [
     BrowserModule,

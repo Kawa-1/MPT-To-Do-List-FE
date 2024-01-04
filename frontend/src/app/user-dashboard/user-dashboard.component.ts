@@ -9,6 +9,7 @@ import {NgbModal, NgbModalOptions, ModalDismissReasons} from '@ng-bootstrap/ng-b
   styleUrl: './user-dashboard.component.css'
 })
 export class UserDashboardComponent {
+  selectedOption: string;
 
   isLoading:boolean = false;
   carname:string = '';
@@ -20,6 +21,7 @@ export class UserDashboardComponent {
   showSuccess: boolean = true;
 
   constructor(private modalService: NgbModal) {
+    this.selectedOption = 'MainPage';
     this.modalOptions = {
       backdrop:'static',
       backdropClass:'customBackdrop'
@@ -27,7 +29,7 @@ export class UserDashboardComponent {
   }
 
   handleShowMyOrders() {
-
+    this.selectedOption = 'Zlecenia';
   }
 
 
