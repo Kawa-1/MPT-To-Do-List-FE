@@ -35,8 +35,14 @@
   <div
     class="modal-body d-flex justify-content-center flex-column align-items-center"
   >
-    <label class="form-label">Numer twojego samochodu</label>
-    <input class="form-control" [(ngModel)]="orderCarId" />
+  <div class="input-group mb-3">
+    <div class="input-group-prepend">
+      <label class="input-group-text" for="inputGroupSelect01">Samochod</label>
+    </div>
+    <select class="custom-select" id="inputGroupSelect01" [(ngModel)]="selectedCar">
+      <option *ngFor="let car of carIds; index as i; first as isFirst" value={{car.cid}}>{{car.name}}</option>
+    </select>
+  </div>
     <label class="form-label">Nazwa problemu</label>
     <input class="form-control" [(ngModel)]="orderName" />
     <label class="form-label">Opis usterki</label>
@@ -60,7 +66,6 @@
     </button>
   </div>
 </ng-template>
-
 
 <ng-template #createCarModal let-modal>
   <div class="modal-header">

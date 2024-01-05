@@ -17,7 +17,6 @@ import { CarService } from '../car.service';
 export class UserDashboardComponent {
   isLoading: boolean = false;
 
-  orderCarId: string = '';
   orderProblemDescription: string = '';
   orderName: string = '';
 
@@ -32,11 +31,15 @@ export class UserDashboardComponent {
   showMainPanel: boolean = true;
   showOrders: boolean = false;
 
+  carIds:any = [{cid:'', name:''}];
+  selectedCar:any;
+
   constructor(private modalService: NgbModal, private taskService: TaskService, private carService: CarService) {
     this.modalOptions = {
       backdrop: 'static',
       backdropClass: 'customBackdrop',
     };
+    this.getCars();
   }
 
   handleShowMyOrders() {
@@ -66,9 +69,11 @@ export class UserDashboardComponent {
   }
 
   tryCreateOrder() {
-    console.log('Create');
+    this.taskService.createTask(this.selectedCar, this.orderName, this.orderProblemDescription).subscribe({
+      next: () => this.showSuccess = true,
+      error: (err) => this.showError = true
+    })
     this.modalService.dismissAll();
-    this.showSuccess = true;
   }
 
   tryCreateCar() {
@@ -76,6 +81,9 @@ export class UserDashboardComponent {
       next: (response) => {
         this.showSuccess = true;
         setTimeout(() => (this.showSuccess = false), 5000);
+        this.getCars();
+        this.carName = '';
+        this.carDescription = '';
       },
       error: () => {
         this.showError = true;
@@ -84,5 +92,21 @@ export class UserDashboardComponent {
     });
     this.modalService.dismissAll();
     this.showSuccess = true;
+  }
+
+  getCars() {
+    this.carService.getAllCars().subscribe({
+      next: (response) => {
+        let placeholder = this.carIds[0];
+        this.carIds = [];
+        this.carIds.push(placeholder);
+        this.carIds = [...this.carIds, ...response];
+        setTimeout(() => (this.showSuccess = false), 5000);
+      },
+      error: () => {
+        this.showError = true;
+        setTimeout(() => (this.showError = false), 5000);
+      }
+    });
   }
 }

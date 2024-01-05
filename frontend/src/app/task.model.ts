@@ -4,6 +4,7 @@ export interface Task {
   name: string;
   description: string;
   subtasks?: Subtask[];
+  created?: string;
 }
 
 export interface Subtask {

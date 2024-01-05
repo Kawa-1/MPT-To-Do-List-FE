@@ -12,7 +12,7 @@ export class CarService {
 
   addCar(newCar:Car) {
     newCar.authToken = this.authService.getToken();
-    return this.httpClient.post<string>(URL + '/car/add', newCar, {headers: this.authService.createAuthHeader()});
+    return this.httpClient.post<string>(URL + '/car/create', newCar, {headers: this.authService.createAuthHeader()});
   }
 
   getAllCars(): Observable<CarDb[]> {
