@@ -28,16 +28,28 @@ export class LoginComponent {
     this.loginService
       .authenticate(this.emailValue, this.passwordValue)
       .subscribe({
-        next: (token) => {
-          console.log(token);
-          this.authService.setToken(token);
-          this.authService.checkIsLogged().then((data) => console.log(data));
+        next: (response) => {
+          this.authService.setToken(response.jwt);
+          this.authService.setRole(response.role);
+          this.authService
+            .checkIsLogged()
+            .then(() => this.redirectToDashboard(this.authService.getRole()));
         },
-        error: (err) => {
-          console.error(err);
+        error: () => {
           this.showError = true;
-          setTimeout(() => this.showError = false, 5000);
-        },
+          setTimeout(() => (this.showError = false), 5000);
+        }
       });
   }
+
+  redirectToDashboard(role: string) {
+    if (role === CLIENT_ROLE) {
+      this.router.navigate(['/userdashboard']);
+      return;
+    }
+    this.router.navigate(['/dashboard']);
+  }
 }
+
+const CLIENT_ROLE: string = 'CLIENT';
+const MECHANIC_ROLE: string = 'MECHANIC';

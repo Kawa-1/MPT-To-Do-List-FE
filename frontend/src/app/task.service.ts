@@ -3,6 +3,8 @@ import { Observable, BehaviorSubject } from 'rxjs';
 import { Task } from './task.model';
 import { Subtask } from './task.model';
 import { map } from 'rxjs/operators';
+import { AuthService } from './auth.service';
+import { HttpClient, HttpParams } from '@angular/common/http';
 
 @Injectable({
   providedIn: 'root'
@@ -11,7 +13,7 @@ export class TaskService {
   private tasks: BehaviorSubject<Task[]> = new BehaviorSubject<Task[]>([]);
   private subtasks: BehaviorSubject<Subtask[]> = new BehaviorSubject<Subtask[]>([]);
 
-  constructor() {
+  constructor(private authService: AuthService, private httpClient: HttpClient) {
     const sampleSubTasks: Subtask[] = [
         { sid: 1, tid: 1, name: 'SubTask 1', description: 'Description for SubTask 1', status: 'done' },
         { sid: 2, tid: 1, name: 'SubTask 2', description: 'Description for SubTask 2', status: 'doing' },
@@ -68,4 +70,14 @@ export class TaskService {
       })
     );
   }
+
+  createTask(cid:string, name:string, description: string) {
+    return this.httpClient.post<string>(URL + '/task/create', {cid:cid, name:name, description:description} , {headers: this.authService.createAuthHeader()});
+  }
+
+  getAllTasks(): Observable<Task[]> {
+    return this.httpClient.get<Task[]>(URL + '/task/all' , {headers: this.authService.createAuthHeader(), params: new HttpParams().set('token', this.authService.getToken())});
+  }
 }
+
+const URL: string = 'http://localhost:8090';

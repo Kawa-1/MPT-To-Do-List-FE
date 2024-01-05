@@ -22,7 +22,11 @@ const routes: Routes = [
   { path: 'about', component: AboutPageComponent },
   { path: 'howtouse', component: HowToPageComponent },
   { path: 'aboutproduct', component: AboutProductPageComponent },
-  { path: 'userdashboard', component: UserDashboardComponent }
+  {
+    path: 'userdashboard',
+    component: UserDashboardComponent,
+    canActivate: [AuthGuard],
+  },
 ];
 
 @NgModule({

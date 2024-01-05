@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { TaskService } from '../task.service';
 import { Task } from '../task.model';
 import { Subtask } from '../task.model';
@@ -10,8 +10,10 @@ import { CdkDragDrop, moveItemInArray, transferArrayItem } from '@angular/cdk/dr
   styleUrls: ['./tasklist.component.css']
 })
 
-export class TasklistComponent implements OnInit {
+export class TasklistComponent {
+  @Input()
   tasks: Task[] = [];
+
   subtasks: Subtask[] = [];
   selectedTask: Task | null = null;
   taskStatuses: string[] = ['todo', 'doing', 'done'];
@@ -21,13 +23,6 @@ export class TasklistComponent implements OnInit {
   done: Subtask[] = [];
 
   constructor(private taskService: TaskService) {}
-
-  ngOnInit(): void {
-    // temporary mock for uid
-    this.taskService.getTasks(1).subscribe((tasks) => {
-      this.tasks = tasks;
-    });
-  }
 
   showTaskDetails(task: Task): void {
     this.selectedTask = task;
