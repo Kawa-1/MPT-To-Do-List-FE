@@ -3,69 +3,63 @@ import { Observable, BehaviorSubject } from 'rxjs';
 import { Task } from './task.model';
 import { Subtask } from './task.model';
 import { map } from 'rxjs/operators';
+import { CookieService } from 'ngx-cookie-service';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 
 @Injectable({
   providedIn: 'root'
 })
 export class TaskService {
-  private tasks: BehaviorSubject<Task[]> = new BehaviorSubject<Task[]>([]);
-  private subtasks: BehaviorSubject<Subtask[]> = new BehaviorSubject<Subtask[]>([]);
+  constructor(private cookieService: CookieService, private http: HttpClient) {}
 
-  constructor() {
-    const sampleSubTasks: Subtask[] = [
-        { sid: 1, tid: 1, name: 'SubTask 1', description: 'Description for SubTask 1', status: 'done' },
-        { sid: 2, tid: 1, name: 'SubTask 2', description: 'Description for SubTask 2', status: 'doing' },
-        { sid: 3, tid: 1, name: 'SubTask 3', description: 'Description for SubTask 3', status: 'todo' }
-      ];
-
-    const sampleTasks: Task[] = [
-      { tid: 1, uid: 1, name: 'Task 1', description: 'Description for Task 1' },
-      { tid: 2, uid: 1, name: 'Task 2', description: 'Description for Task 2' },
-      { tid: 3, uid: 1, name: 'Task 3', description: 'Description for Task 3' }
-    ];
-
-    this.tasks.next(sampleTasks);
-    this.subtasks.next(sampleSubTasks);
-  }
-
-  getTasks(uid: number):  BehaviorSubject<Task[]> {
-    // fetch from backend instead
-    const filteredTasks = this.tasks.pipe(
-      map(tasks => tasks.filter(t => t.uid === uid))
-    );
-
-    const filteredTasksSubject = new BehaviorSubject<Task[]>([]);
-    filteredTasks.subscribe(filteredTasks => {
-      filteredTasksSubject.next(filteredTasks);
+  getTasks():  Observable<Task[]> {
+    const token = this.cookieService.get('Token');
+    const headers = new HttpHeaders({
+      'Content-Type': 'application/json',
+      'Authorization': 'Bearer ' + token
     });
 
-    return filteredTasksSubject;
+    return this.http.get<{ tasks: Task[] }>(URL + '/task/all', { headers })
+      .pipe(
+        map(response => response.tasks)
+      );
   }
 
-  getSubtasks(tid: number): BehaviorSubject<Subtask[]> {
-    // fetch from backend instead
-    const filteredSubtasks = this.subtasks.pipe(
-      map(subtasks => subtasks.filter(st => st.tid === tid))
-    );
+  getSubtasks(tid: number): Observable<Subtask[]> {
+    const token = this.cookieService.get('Token');
+    const options = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json',
+        'Authorization': 'Bearer ' + token
+      }),
+      body: { tid: tid }
+    };
 
-    const filteredSubtasksSubject = new BehaviorSubject<Subtask[]>([]);
-    filteredSubtasks.subscribe(filteredSubtasks => {
-      filteredSubtasksSubject.next(filteredSubtasks);
-    });
-
-    return filteredSubtasksSubject;
+    return this.http.get<{ subtasks: Subtask[] }>(URL + '/task/subtask/all', options)
+      .pipe(
+        map(response => response.subtasks)
+      );
   }
 
-  updateSubtaskStatus(sid: number, newStatus: 'todo' | 'doing' | 'done'): void {
-    this.subtasks.next(
-      this.subtasks.value.map(subtask => {
-        if (subtask.sid === sid) {
-          // push new info to backend or sth
-          console.log("Status of task " + sid + " updated: " + newStatus);
-          return { ...subtask, status: newStatus };
-        }
-        return subtask;
-      })
-    );
+  updateSubtaskStatus(subtask: Subtask, newStatus: 'todo' | 'doing' | 'done'): Observable<any> {
+    const token = this.cookieService.get('Token');
+    const options = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json',
+        'Authorization': 'Bearer ' + token
+      }),
+      body: {
+        sid: subtask.sid,
+        tid: subtask.tid,
+        name: subtask.name,
+        describtion: subtask.description,
+        status: newStatus
+      }
+    };
+
+    return this.http.post<{ subtask: Subtask }>(URL + '/task/subtask/update', options);
   }
 }
+
+const URL = 'http://127.0.0.1:8000';
+

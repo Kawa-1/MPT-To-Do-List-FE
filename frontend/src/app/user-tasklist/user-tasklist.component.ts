@@ -22,8 +22,7 @@ export class UserTasklistComponent implements OnInit {
   constructor(private taskService: TaskService) {}
 
   ngOnInit(): void {
-    // temporary mock for uid
-    this.taskService.getTasks(1).subscribe((tasks) => {
+    this.taskService.getTasks().subscribe((tasks) => {
       this.tasks = tasks;
     });
   }

@@ -23,8 +23,7 @@ export class TasklistComponent implements OnInit {
   constructor(private taskService: TaskService) {}
 
   ngOnInit(): void {
-    // temporary mock for uid
-    this.taskService.getTasks(1).subscribe((tasks) => {
+    this.taskService.getTasks().subscribe((tasks) => {
       this.tasks = tasks;
     });
   }
@@ -58,9 +57,14 @@ export class TasklistComponent implements OnInit {
     const droppedSubtaskId = event.item.data.sid;
     const subtask = this.subtasks.find(st => st.sid === droppedSubtaskId);
     if (subtask) {
-      subtask.status = status;
+      this.taskService.updateSubtaskStatus(subtask, status).subscribe({
+        next: (response) => {
+          subtask.status = status;
+        },
+        error: (error) => {
+            console.error('Error changing subtask status', error);
+        },
+      });
     }
-    this.taskService.updateSubtaskStatus(droppedSubtaskId, status);
   }
-
 }
