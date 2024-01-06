@@ -8,9 +8,14 @@ import { TaskService } from '../task.service';
 })
 export class DashboardComponent {
   selectedOption: string;
+  tasks:any;
 
   constructor(private taskService: TaskService) {
     this.selectedOption = 'MainPage';
+    taskService.getAllTasks().subscribe({
+      next: (tasks) => {this.tasks = tasks},
+      error: (err) => console.log(err)
+    })
   }
 
   handleOptionClick(option: string): void {

@@ -72,7 +72,7 @@ export class RegisterComponent {
       // clientName: this.clientName,
       password: this.clientPassword,
       // clientPhone: this.clientPhone,
-      isWorkshop: false,
+      is_workshop: false,
     };
     this.loginService.register(newUserData).subscribe({
       next: (data) => console.log(data),
@@ -94,7 +94,7 @@ export class RegisterComponent {
       // clientName: this.mechanicName,
       password: this.mechanicPassword,
       // clientPhone: '',
-      isWorkshop: true,
+      is_workshop: true,
     };
     this.loginService.register(newUserData).subscribe({
       next: (data) => console.log(data),

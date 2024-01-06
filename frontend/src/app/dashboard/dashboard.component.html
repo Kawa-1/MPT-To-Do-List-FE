@@ -12,7 +12,7 @@
   </div>
   <div class="main-panel">
     <ng-container *ngIf="selectedOption === 'TODO'; else defaultContent">
-      <app-tasklist></app-tasklist>
+      <app-tasklist [tasks]="tasks"></app-tasklist>
     </ng-container>
     <ng-template #defaultContent>
       <h2>Main Panel Content</h2>
