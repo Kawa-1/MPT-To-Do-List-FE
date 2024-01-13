@@ -27,7 +27,7 @@ export interface RegisterWrapper {
   // clientPhone: String;
   // clientMail: String;
   password: String;
-  isWorkshop: Boolean;
+  role: String;
 }
 
 export interface AuthResponse {

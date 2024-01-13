@@ -34,12 +34,15 @@ export class UserDashboardComponent {
   carIds:any = [{cid:'', name:''}];
   selectedCar:any;
 
+  tasks:any;
+
   constructor(private modalService: NgbModal, private taskService: TaskService, private carService: CarService) {
     this.modalOptions = {
       backdrop: 'static',
       backdropClass: 'customBackdrop',
     };
     this.getCars();
+    this.getOrders();
   }
 
   handleShowMyOrders() {
@@ -70,7 +73,8 @@ export class UserDashboardComponent {
 
   tryCreateOrder() {
     this.taskService.createTask(this.selectedCar, this.orderName, this.orderProblemDescription).subscribe({
-      next: () => this.showSuccess = true,
+      next: () => {this.showSuccess = true;
+        this.getOrders();},
       error: (err) => this.showError = true
     })
     this.modalService.dismissAll();
@@ -108,5 +112,12 @@ export class UserDashboardComponent {
         setTimeout(() => (this.showError = false), 5000);
       }
     });
+  }
+
+  getOrders() {
+    this.taskService.getAllTasks().subscribe({
+      next: (tasks) => {this.tasks = tasks},
+      error: (err) => console.log(err)
+    })
   }
 }
