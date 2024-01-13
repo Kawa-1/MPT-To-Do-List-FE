@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { TaskService } from '../task.service';
 
@@ -8,11 +8,10 @@ import { TaskService } from '../task.service';
   styleUrl: './client-orders.component.css'
 })
 export class ClientOrdersComponent {
+  @Input()
   tasks:any;
-  constructor(taskService: TaskService) {
-    taskService.getAllTasks().subscribe({
-      next: (tasks) => {this.tasks = tasks},
-      error: (err) => console.log(err)
-    })
+
+  constructor() {
+
   }
 }
