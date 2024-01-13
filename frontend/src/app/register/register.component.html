@@ -193,6 +193,16 @@
     type="danger"
     (hidden)="showError = false"
   >
-    You provided wrong credentials
+    Nazwa jest zajęta, spróbuj ponownie
+  </ngb-alert>
+</div>
+<div style="position: absolute; bottom: 30px; right: 20px">
+  <ngb-alert
+    class="bg-success bottom-0 end-0 postion-fixed"
+    *ngIf="showSuccess"
+    type="success"
+    (hidden)="showSuccess = false"
+  >
+    Pomyślnie utworzono konto
   </ngb-alert>
 </div>

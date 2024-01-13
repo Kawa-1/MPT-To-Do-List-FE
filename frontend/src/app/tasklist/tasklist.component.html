@@ -1,8 +1,12 @@
 <div *ngIf="!selectedTask; else taskDetails" class="task-tiles-container">
   <div class="task-prompt">
-      <p>Wybierz zadanie</p>
+    <p>Wybierz zadanie</p>
   </div>
-  <div *ngFor="let task of tasks" class="task-tile" (click)="showTaskDetails(task)">
+  <div
+    *ngFor="let task of tasks"
+    class="task-tile"
+    (click)="showTaskDetails(task)"
+  >
     <div class="task-title">
       <h3>{{ task.name }}</h3>
     </div>
@@ -12,60 +16,130 @@
 
 <ng-template #taskDetails>
   <div class="task-details">
-      <div class="task-banner">
-        <p>{{ selectedTask!.name }}</p>
-      </div>
-      <p class="inside-task-description">{{ selectedTask!.description }}</p>
-      <button class="button-back" (click)="selectedTask = null">Back to Task List</button>
-      <div class="subtask-container">
-        <div class="subtask-status-todo subtask-status">
-          <div
+    <div class="task-banner">
+      <p>{{ selectedTask!.name }}</p>
+      <button
+        type="button"
+        class="btn btn-secondary"
+        (click)="openModal(createSubtaskModal)"
+      >
+        <i class="fas fa-home"></i> Dodaj podzadanie
+      </button>
+      <button *ngIf="selectedTask?.uid == null"
+        type="button"
+        class="btn btn-secondary"
+        (click)="assignToMyWorkshop()"
+      >
+        Przypisz do mojego warsztatu
+      </button>
+    </div>
+    <p class="inside-task-description">{{ selectedTask!.description }}</p>
+    <button class="button-back" (click)="selectedTask = null">
+      Wróć do listy zadań
+    </button>
+    <div class="subtask-container">
+      <div class="subtask-status-todo subtask-status">
+        <div
           cdkDropList
           #todoList="cdkDropList"
           [cdkDropListData]="todo"
           [cdkDropListConnectedTo]="[doingList, doneList]"
           class="example-list"
-          (cdkDropListDropped)="drop($event, 'todo')">
-            <div *ngFor="let subtask of todo" class="subtask-tile" cdkDrag [cdkDragData]="{ sid: subtask.sid }">
-              <div class="subtask-title">
-                <h3>{{ subtask.name }}</h3>
-              </div>
-              <p class="subtask-description">{{ subtask.description }}</p>
-            </div>
-          </div>
-        </div>
-        <div class="subtask-status-doing subtask-status">
+          (cdkDropListDropped)="drop($event, 'todo')"
+        >
           <div
-            cdkDropList
-            #doingList="cdkDropList"
-            [cdkDropListData]="doing"
-            [cdkDropListConnectedTo]="[todoList, doneList]"
-            class="example-list"
-            (cdkDropListDropped)="drop($event, 'doing')">
-            <div *ngFor="let subtask of doing" class="subtask-tile" cdkDrag [cdkDragData]="{ sid: subtask.sid }">
-              <div class="subtask-title">
-                <h3>{{ subtask.name }}</h3>
-              </div>
-              <p class="subtask-description">{{ subtask.description }}</p>
+            *ngFor="let subtask of todo"
+            class="subtask-tile"
+            cdkDrag
+            [cdkDragData]="{ sid: subtask.sid }"
+          >
+            <div class="subtask-title">
+              <h3>{{ subtask.name }}</h3>
             </div>
-          </div>
-        </div>
-        <div class="subtask-status-done subtask-status">
-          <div
-            cdkDropList
-            #doneList="cdkDropList"
-            [cdkDropListData]="done"
-            [cdkDropListConnectedTo]="[todoList, doingList]"
-            class="example-list"
-            (cdkDropListDropped)="drop($event, 'done')">
-            <div *ngFor="let subtask of done" class="subtask-tile" cdkDrag [cdkDragData]="{ sid: subtask.sid }">
-              <div class="subtask-title">
-                <h3>{{ subtask.name }}</h3>
-              </div>
-              <p class="subtask-description">{{ subtask.description }}</p>
-            </div>
+            <p class="subtask-description">{{ subtask.description }}</p>
           </div>
         </div>
       </div>
+      <div class="subtask-status-doing subtask-status">
+        <div
+          cdkDropList
+          #doingList="cdkDropList"
+          [cdkDropListData]="doing"
+          [cdkDropListConnectedTo]="[todoList, doneList]"
+          class="example-list"
+          (cdkDropListDropped)="drop($event, 'doing')"
+        >
+          <div
+            *ngFor="let subtask of doing"
+            class="subtask-tile"
+            cdkDrag
+            [cdkDragData]="{ sid: subtask.sid }"
+          >
+            <div class="subtask-title">
+              <h3>{{ subtask.name }}</h3>
+            </div>
+            <p class="subtask-description">{{ subtask.description }}</p>
+          </div>
+        </div>
+      </div>
+      <div class="subtask-status-done subtask-status">
+        <div
+          cdkDropList
+          #doneList="cdkDropList"
+          [cdkDropListData]="done"
+          [cdkDropListConnectedTo]="[todoList, doingList]"
+          class="example-list"
+          (cdkDropListDropped)="drop($event, 'done')"
+        >
+          <div
+            *ngFor="let subtask of done"
+            class="subtask-tile"
+            cdkDrag
+            [cdkDragData]="{ sid: subtask.sid }"
+          >
+            <div class="subtask-title">
+              <h3>{{ subtask.name }}</h3>
+            </div>
+            <p class="subtask-description">{{ subtask.description }}</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</ng-template>
+
+<ng-template #createSubtaskModal let-modal>
+  <div class="modal-header">
+    <h4 class="modal-title" id="modal-basic-title">Dodaj podzadanie</h4>
+    <button
+      type="button"
+      class="btn-close"
+      (click)="modal.dismiss('Cross click')"
+    ></button>
+  </div>
+  <div
+    class="modal-body d-flex justify-content-center flex-column align-items-center"
+  >
+    <label class="form-label">Nazwa podzadania</label>
+    <input class="form-control" [(ngModel)]="subtaskName" />
+    <label class="form-label">Opis</label>
+    <input class="form-control" [(ngModel)]="subsubtaskDescription" />
+  </div>
+  <div class="modal-footer">
+    <button
+      type="button"
+      [hidden]="isLoading"
+      class="btn btn-outline-dark"
+      (click)="createSubtask()"
+    >
+      Dodaj podzadanie
+    </button>
+    <button type="button" [hidden]="!isLoading" class="btn btn-outline-dark">
+      <span
+        class="spinner-border spinner-border-sm"
+        role="status"
+        aria-hidden="true"
+      ></span>
+    </button>
   </div>
 </ng-template>

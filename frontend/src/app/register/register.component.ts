@@ -29,6 +29,7 @@ export class RegisterComponent {
 
   passwordMatch: Boolean = true;
   showError: boolean = false;
+  showSuccess: boolean = false;
 
   constructor(private router: Router, private loginService: LoginService) {}
 
@@ -72,13 +73,19 @@ export class RegisterComponent {
       // clientName: this.clientName,
       password: this.clientPassword,
       // clientPhone: this.clientPhone,
-      is_workshop: false,
+      role: CLIETN_ROLE,
     };
     this.loginService.register(newUserData).subscribe({
-      next: (data) => console.log(data),
-      error: (err) => {console.error(err);
+      next: (data) => {
+        this.showSuccess = true;
+        setTimeout(() => (this.showSuccess = false), 5000);
+        this.clearFields();
+      },
+      error: (err) => {
+        console.error(err);
         this.showError = true;
-        setTimeout(() => this.showError = false, 5000);},
+        setTimeout(() => (this.showError = false), 5000);
+      },
     });
   }
 
@@ -94,14 +101,18 @@ export class RegisterComponent {
       // clientName: this.mechanicName,
       password: this.mechanicPassword,
       // clientPhone: '',
-      is_workshop: true,
+      role: MECHANIC_ROLE,
     };
     this.loginService.register(newUserData).subscribe({
-      next: (data) => console.log(data),
+      next: (data) => {
+        this.showSuccess = true;
+        setTimeout(() => (this.showSuccess = false), 5000);
+        this.clearFields();
+      },
       error: (err) => {
         console.error(err);
-          this.showError = true;
-          setTimeout(() => this.showError = false, 5000);
+        this.showError = true;
+        setTimeout(() => (this.showError = false), 5000);
       },
     });
   }
@@ -109,8 +120,26 @@ export class RegisterComponent {
   showPasswordsDontMatchError() {
     this.passwordMatch = false;
   }
+
+  clearFields() {
+    this.clientName = '';
+    this.clientAddress = '';
+    this.clientPhone = '';
+    this.clientMail = '';
+    this.clientPassword = '';
+    this.clientConfirmPassword = '';
+
+    this.mechanicName = '';
+    this.mechanicAddress = '';
+    this.mechanicSpec = '';
+    this.mechanicMail = '';
+    this.mechanicPassword = '';
+    this.mechanicConfirmPassword = '';
+  }
 }
 
 const REGISTER_AS_MECHANIC_ID = 'registerAsMechanic';
 const REGISTER_AS_CLIENT = 'registerAsClient';
 const SELECTED_TYPE_OF_CLIENT = 'selectedTypeOfClient';
+const CLIETN_ROLE = 'CLIENT';
+const MECHANIC_ROLE = 'MECHANIC';
