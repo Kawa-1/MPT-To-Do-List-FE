@@ -35,7 +35,7 @@ export interface AuthResponse {
   role: string
 }
 
-const URL: string = 'http://localhost:8090';
+const URL: string = 'http://34.118.68.231:8090';
 const HTTP_JSON_APPLICATION_HEADER:HttpHeaders = new HttpHeaders({
   "Content-Type": "application/json"
 });

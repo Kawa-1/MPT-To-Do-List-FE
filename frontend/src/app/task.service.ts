@@ -141,4 +141,4 @@ export class TaskService {
   }
 }
 
-const URL: string = 'http://localhost:8090';
+const URL: string = 'http://34.118.68.231:8090';
