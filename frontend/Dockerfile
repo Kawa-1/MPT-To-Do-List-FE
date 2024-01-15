@@ -1,10 +1,10 @@
-FROM node:21.5-alpine3.18
+FROM node:21.2-alpine3.18
 
 WORKDIR /app
 
 COPY package*.json ./
 
-RUN npm install --force
+RUN npm install --legacy-peer-deps
 
 RUN npm install -g @angular/cli
 
