@@ -48,3 +48,10 @@
 .option:hover {
   background-color: #555;
 }
+
+.main-page {
+  margin: 10%;
+  margin-top: 5%;
+  text-align: center;
+  color: white;
+}
