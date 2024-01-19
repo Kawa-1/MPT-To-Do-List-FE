@@ -21,7 +21,10 @@
       <app-tasklist [tasks]="myTasks"></app-tasklist>
     </ng-container>
     <ng-container *ngIf="selectedOption === 'MainPage'">
-      <h2>Tu na razie jest ściernisko ale będzie san francisco</h2>
+      <div class="main-page">
+        <h1>Witamy w systemie Twój Mechanic!</h1>
+        <h2>Wybierz opcję na panelu po prawej, aby wyświetlić listę zadań.</h2>
+      </div>
     </ng-container>
   </div>
 </div>
