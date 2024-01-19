@@ -15,10 +15,10 @@
   </div>
   <div class="main-panel">
     <ng-container *ngIf="selectedOption === 'TODO'">
-      <app-tasklist (newTaskAssigned)="moveToAssigned($event)" [tasks]="tasks" ></app-tasklist>
+      <app-tasklist (newTaskAssigned)="moveToAssigned($event)" [tasks]="tasks" [myTasks]="false" [isWorkshop]="true"></app-tasklist>
     </ng-container>
     <ng-container *ngIf="selectedOption === 'MY_TASKS'">
-      <app-tasklist [tasks]="myTasks"></app-tasklist>
+      <app-tasklist [tasks]="myTasks" [myTasks]="true" [isWorkshop]="true"></app-tasklist>
     </ng-container>
     <ng-container *ngIf="selectedOption === 'MainPage'">
       <div class="main-page">

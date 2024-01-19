@@ -16,9 +16,9 @@
 
 <ng-template #taskDetails>
   <div class="task-details">
-    <div class="task-banner">
+    <div *ngIf="isWorkshop" class="task-banner">
       <p>{{ selectedTask!.name }}</p>
-      <button
+      <button *ngIf="myTasks"
         type="button"
         class="btn btn-secondary"
         (click)="openModal(createSubtaskModal)"
@@ -34,10 +34,16 @@
       </button>
     </div>
     <p class="inside-task-description">{{ selectedTask!.description }}</p>
-    <button class="button-back" (click)="selectedTask = null">
-      Wróć do listy zadań
-    </button>
-    <div class="subtask-container">
+    <div class="task-banner">
+      <button *ngIf="selectedTask"
+        type="button"
+        class="btn btn-secondary"
+        (click)="selectedTask = null"
+      >
+        Wróć do listy zadań
+      </button>
+    </div>
+    <div *ngIf="myTasks; else notMyTasks" class="subtask-container">
       <div class="subtask-status-todo subtask-status">
         <div
           cdkDropList
@@ -105,6 +111,53 @@
         </div>
       </div>
     </div>
+    <ng-template #notMyTasks>
+      <div class="subtask-container">
+
+        <div class="subtask-status-todo subtask-status">
+          <div
+          >
+            <div
+              *ngFor="let subtask of todo"
+              class="subtask-tile"
+            >
+              <div class="subtask-title">
+                <h3>{{ subtask.name }}</h3>
+              </div>
+              <p class="subtask-description">{{ subtask.description }}</p>
+            </div>
+          </div>
+        </div>
+        <div class="subtask-status-doing subtask-status">
+          <div
+          >
+            <div
+              *ngFor="let subtask of doing"
+              class="subtask-tile"
+            >
+              <div class="subtask-title">
+                <h3>{{ subtask.name }}</h3>
+              </div>
+              <p class="subtask-description">{{ subtask.description }}</p>
+            </div>
+          </div>
+        </div>
+        <div class="subtask-status-done subtask-status">
+          <div
+          >
+            <div
+              *ngFor="let subtask of done"
+              class="subtask-tile"
+            >
+              <div class="subtask-title">
+                <h3>{{ subtask.name }}</h3>
+              </div>
+              <p class="subtask-description">{{ subtask.description }}</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </ng-template>
   </div>
 </ng-template>
 

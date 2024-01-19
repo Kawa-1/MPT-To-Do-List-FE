@@ -23,6 +23,12 @@ export class TasklistComponent {
   @Input()
   tasks: Task[] = [];
 
+  @Input()
+  isWorkshop: boolean = false;
+
+  @Input()
+  myTasks: boolean = false;
+
   @Output()
   newTaskAssigned = new EventEmitter<Task|null>;
 
