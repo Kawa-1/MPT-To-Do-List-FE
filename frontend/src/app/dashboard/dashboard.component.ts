@@ -33,6 +33,7 @@ export class DashboardComponent {
   }
 
   moveToAssigned(event:any) {
+    event.uid = 100;
     this.myTasks.push(event);
     this.tasks = this.tasks.filter((task:any) => task.tid != event.tid);
     console.log(this.tasks);

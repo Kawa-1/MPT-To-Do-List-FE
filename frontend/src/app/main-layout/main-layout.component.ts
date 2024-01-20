@@ -13,7 +13,8 @@ import { AuthService } from '../auth.service';
 })
 export class MainLayoutComponent {
 
-  isLogged:boolean = false;
+  isLogged:Boolean = false;
+  isClient:Boolean = false;
 
   constructor(private router: Router, private authService: AuthService){}
 
@@ -21,16 +22,19 @@ export class MainLayoutComponent {
     this.router.navigate(['/register']);
   }
 
-  async ngOnInit() {
-    this.isLogged = await this.authService.checkIsLogged();
+  ngAfterContentChecked() {
+    this.isLogged = this.authService.checkIsLoggedStatic();
+    if (this.isLogged) {
+      this.isClient = this.authService.getRole() == 'CLIENT';
+    }
   }
 
-  async ngAfterViewInit() {
-    this.isLogged = await this.authService.checkIsLogged();
+  ngAfterViewInit() {
+    this.isLogged = this.authService.checkIsLoggedStatic();
   }
 
-  async ngOnChanges() {
-    this.isLogged = await this.authService.checkIsLogged();
+  ngOnChanges() {
+    this.isLogged = this.authService.checkIsLoggedStatic();
   }
 
   logout() {
@@ -41,5 +45,13 @@ export class MainLayoutComponent {
 
   redirectToLogin() {
     this.router.navigate(['/login']);
+  }
+
+  redirectToUserDashboard() {
+    this.router.navigate(['/userdashboard']);
+  }
+
+  redirectToDashboard() {
+    this.router.navigate(['/dashboard']);
   }
 }

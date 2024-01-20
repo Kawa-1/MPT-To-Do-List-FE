@@ -45,6 +45,13 @@ export class AuthService {
     });
   }
 
+  checkIsLoggedStatic(): Boolean {
+    if (this.getToken()) {
+      return true;
+    }
+    return false;
+  }
+
   logout(): void {
     this.cookieService.delete('Token');
   }

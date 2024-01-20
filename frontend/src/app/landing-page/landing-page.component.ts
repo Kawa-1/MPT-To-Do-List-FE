@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-landing-page',
@@ -10,4 +11,9 @@ import { CommonModule } from '@angular/common';
 })
 export class LandingPageComponent {
 
+  constructor(private router: Router){}
+
+  redirectToRegister() {
+    this.router.navigate(['/register']);
+  }
 }

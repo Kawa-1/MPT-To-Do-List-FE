@@ -30,7 +30,7 @@ export class TasklistComponent {
   myTasks: boolean = false;
 
   @Output()
-  newTaskAssigned = new EventEmitter<Task|null>;
+  newTaskAssigned = new EventEmitter<Task | null>();
 
   subtasks: Subtask[] = [];
   selectedTask: Task | null = null;
@@ -60,7 +60,12 @@ export class TasklistComponent {
 
   showTaskDetails(task: Task): void {
     this.selectedTask = task;
-    this.taskService.getSubtasks(task.tid).subscribe({
+    this.retrieveSubtasks(task);
+  }
+
+  retrieveSubtasks(task: Task| null) {
+    let taskId: number = task == null ? 0 : task.tid
+    this.taskService.getSubtasks(taskId).subscribe({
       next: (response) => {
         this.subtasks = response;
         this.todo = this.filterSubtasksByStatus('todo');
@@ -99,8 +104,8 @@ export class TasklistComponent {
     }
     this.taskService.updateSubtaskStatus(droppedSubtaskId, status).subscribe({
       next: () => console.log('succ'),
-      error: (err) => console.error(err)
-    })
+      error: (err) => console.error(err),
+    });
   }
 
   createSubtask(): void {
@@ -111,7 +116,12 @@ export class TasklistComponent {
         this.subsubtaskDescription
       )
       .subscribe({
-        next: () => console.log('success'),
+        next: () => {
+          this.subtaskName = '';
+          this.subsubtaskDescription = '';
+          this.modalService.dismissAll();
+          this.retrieveSubtasks(this.selectedTask);
+        },
         error: (err) => console.log(err),
       });
   }

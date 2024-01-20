@@ -16,6 +16,7 @@ import { DashboardComponent } from './dashboard/dashboard.component';
 import { DragDropModule } from '@angular/cdk/drag-drop';
 import { UserDashboardComponent } from './user-dashboard/user-dashboard.component';
 import { ClientOrdersComponent } from './client-orders/client-orders.component';
+import { AboutPageComponent } from './about-page/about-page.component';
 
 
 @NgModule({
@@ -27,7 +28,8 @@ import { ClientOrdersComponent } from './client-orders/client-orders.component';
     TasklistComponent,
     RegisterComponent,
     UserDashboardComponent,
-    ClientOrdersComponent
+    ClientOrdersComponent,
+    AboutPageComponent
   ],
   imports: [
     BrowserModule,
